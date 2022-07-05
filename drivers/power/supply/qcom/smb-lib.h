@@ -358,6 +358,9 @@ struct smb_charger {
 	u32			wa_flags;
 	bool			cc2_detach_wa_active;
 	bool			typec_en_dis_active;
+#ifdef CONFIG_XIAOMI
+	bool			float_rerun_apsd;
+#endif
 	bool			try_sink_active;
 	int			boost_current_ua;
 	int			temp_speed_reading_count;
@@ -552,6 +555,10 @@ void smblib_usb_typec_change(struct smb_charger *chg);
 int smblib_toggle_stat(struct smb_charger *chg, int reset);
 int smblib_force_ufp(struct smb_charger *chg);
 
+#ifdef CONFIG_XIAOMI
+int smblib_set_prop_rerun_apsd(struct smb_charger *chg,
+				const union power_supply_propval *val);
+#endif
 int smblib_init(struct smb_charger *chg);
 int smblib_deinit(struct smb_charger *chg);
 #endif /* __SMB2_CHARGER_H */
